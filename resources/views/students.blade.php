@@ -6,7 +6,7 @@
     @if($isAdmin)
         <ul>
             @foreach ($students as $key => $student)
-                <li style="font-size: 20px">{{ $key + 1 }}. {{ $student->fname . '' . $student->lname}}</li>
+                <li style="font-size: 20px">{{ $key + 1 }}. {{ $student->fname . ' ' . $student->lname}}</li>
             @endforeach  
 
             {!! $students->links() !!}

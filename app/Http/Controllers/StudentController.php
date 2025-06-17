@@ -27,11 +27,24 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-       Student::create([
+       $request->validate(
+        [
+            'fname'    => 'required',
+            'lname'    => 'required',
+            'email'    => 'required|email|unique:students,email',
+            'contact_number'   => 'required'
+        ],
+        [
+            'fname.required' => 'The first name field is required.',
+            'lname.required' => 'The last name field is required.',
+        ]
+    );
+
+    Student::create([
         'fname' => $request['fname'],
         'lname' => $request['lname'],
         'email' => $request['email'],
-        'contact number' => $request['contact number'],
+        'contact_number' => $request['contact_number'],
        ]);
 
        return redirect()->to('students');

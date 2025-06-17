@@ -14,7 +14,7 @@ class Student extends Model
         'fname',
         'lname',
         'email',
-        'contact number',
+        'contact_number',
         'gender',
         'birthdate',
         'complete_address',
