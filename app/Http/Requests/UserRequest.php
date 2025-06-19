@@ -21,11 +21,11 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->input('id')
+        $id = $this->input('id');
         return [
-            'name'      =>  'required',
-            'email'     =>  'required|email|unique:users,email,' . (($id) ? $id : null) . ',id',
-            'password'  =>  'required|min:8|confirmed',
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users,email,' . (($id) ? $id :null) . ',id',
+            'password' => 'required|min:8|confirmed',
         ];
     }
 }
