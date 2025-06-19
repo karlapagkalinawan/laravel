@@ -17,14 +17,16 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'fname'      => fake()->firstName,
-            'lname'      => fake()->lastName,
-            'email'      => fake()->unique()->email,
-            'contact number'      => fake()->phoneNumber,
-            'gender'      => fake()->randomElement(['Male', 'Female']),
-            'birthdate'       => fake()->date('Y-m-d', 'now'),
-            'complete_address'       => fake()->address,
-            'bio'       => fake()->sentence,
+            'fname' => 'Mar',
+            'lname' => 'Tirao',
+            'email' => 'marandrewtirao@gmail.com',
+            'birthdate' => '2003-04-11',
+            'gender' => 'Male',
+            'contact_number' => '09614265121',
+            'complete_address' => 'San Jacinto Pangasinan',
+            'bio' => 'Isaih 50:22',
+
+           
         ];
     }
 }

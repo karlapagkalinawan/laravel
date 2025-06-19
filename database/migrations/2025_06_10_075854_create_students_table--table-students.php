@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('fname', 100);
             $table->string('lname', 100);
             $table->string('email', 100);
-            $table->string('contact number', 50)->nullable();
-            $table->enum('gender',['Male','Female' ]) ->nullable();
-            $table->date('birthdate')->nullable();
+            $table->string('gender',['Male', 'Famale']) -> nullable();
+            $table->date('birthdate') -> nullable();
+            $table->string('contact_number') -> nullable();
             $table->string('complete_address')->nullable ();
-            $table->text('bio')->nullable();
+            $table->timestamps('bio')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema:: dropIfExists('students');
     }
 };
