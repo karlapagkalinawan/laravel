@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -15,7 +16,6 @@ class UserController extends Controller
     {
         $data['users'] = User::all();
         return view('client.users.index', $data);
-
     }
 
     /**
@@ -23,15 +23,22 @@ class UserController extends Controller
      */
     public function create()
     {
-        return "This is user create";
+        return view('client.users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+
+        ]);
+
+        return redirect()->to('client/users')->with('success', 'User created successfully.');
     }
 
     /**
