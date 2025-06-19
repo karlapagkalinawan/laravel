@@ -28,11 +28,11 @@
                 @forelse($users as $key => $user)
                 <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $user->created_date}}</td>
+                    <td>{{ $user->created_date }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="" class="btn btn-success btn-sm">Edit</a>
+                        <a href="{{ url('client/users', $user->id) }}/edit" class="btn btn-success btn-sm">Edit</a>
                         <a href="" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr> 
@@ -48,9 +48,6 @@
     </div>
     <!-- /.card-body -->
 </div>
-
-
-    
             </div>
 </div>
 @endsection
