@@ -56,15 +56,20 @@ class UserController extends Controller
     {
         $data['user'] = User::find($id);
         return view('client.users.edit', $data);
-        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserRequest $request, string $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->password = bcrypt($request['password']);
+        $user->save();
+
+        return redirect()->back()->with('success', 'User has been updateed.');
     }
 
     /**
