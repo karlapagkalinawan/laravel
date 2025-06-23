@@ -3,9 +3,8 @@
 @section('content')
     <h2 class="students">{{ $user }}</h2>
     @session('success')
-    </div>
     <div class="alert alert-success" role="alert">
-        {{ session('success') }}
+        {{ session ('success')}}
     </div>
     @endsession
     @if($isAdmin)
@@ -25,35 +24,36 @@
             <tbody>
                 @foreach ($students as $key => $student)
                     <tr>
-                        <td>{{ $key + 1 }}.</td>
+                        <td>{{ $key + 1 }}</td>
                         <td>{{ $student->fname . ' ' . $student->lname }}</td>
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->contact_number }}</td>
                         <td>
-                            <a href="{{ url('students', $student->id) }}/edit" class="btn btn-success btn-sm">Edit</a>
-
-                            <form action="{{ url('students', $student->id) }}" method="POST" style="display:inline-block;" 
-                                  onsubmit="return confirm('Are you sure you want to delete this student?');">
+                            <a href="{{ url('students', $student->id)}}/edit" class="btn btn-success btn-sm">Edit</a>
+                            <form action="{{ route('students.delete', $student->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button class="btn btn-danger btn-sm" onClick="return confirm('Are you sure you want to delete this students?')">Delete</a>
                             </form>
+
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        {!! $students->links() !!} 
+        {!! $students->links() !!}
     @else
         <h1>Admin is False</h1>
-    @endif
+    @endif    
 @endsection
 
 @section('css')
     <style>
         .students {
             text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
     </style>
 @endsection

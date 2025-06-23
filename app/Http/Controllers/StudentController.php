@@ -12,7 +12,6 @@ class StudentController extends Controller
         $data['students'] = Student::orderBy('created_at', 'desc')->paginate(15);
         $data['isAdmin'] = true;
         $data['user'] = "Karla";
-
         return view('students', $data);
     }
 

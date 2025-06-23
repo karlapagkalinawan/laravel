@@ -66,10 +66,14 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request['name'];
         $user->email = $request['email'];
-        $user->password = bcrypt($request['password']);
+        if(isset($request['password']) && $request['password'] !== null) {
+
+        
+            $user->password = bcrypt($request['password']);
+        }
         $user->save();
 
-        return redirect()->back()->with('success', 'User has been updateed.');
+        return redirect()->back()->with('success', 'User has been updated.');
     }
 
     /**
@@ -77,6 +81,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        return response()->json(200);
     }
 }
