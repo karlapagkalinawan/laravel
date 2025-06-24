@@ -21,3 +21,6 @@ Route::prefix('client')->middleware('auth:web')->group(function(){
     Route::resource('users',UserController::class);
      Route::resource('students',StudentController::class);
 });
+Route::prefix('client')->group(function () {
+    Route::resource('appointments', \App\Http\Controllers\Client\AppointmentController::class);
+});
