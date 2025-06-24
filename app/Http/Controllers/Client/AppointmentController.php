@@ -14,7 +14,6 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        // Eager load student relationship for efficiency
         $appointments = Appointment::with('student')->get();
 
         return view('client.appointments.index', compact('appointments'));
@@ -46,7 +45,8 @@ class AppointmentController extends Controller
 
         Appointment::create($request->all());
 
-        return redirect()->route('appointments.index')->with('success', 'Appointment created successfully.');
+        return redirect()->route('appointments.index')
+                         ->with('success', 'Appointment created successfully.');
     }
 
     /**
@@ -77,7 +77,8 @@ class AppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->update($request->all());
 
-        return redirect()->back()->with('success', 'Appointment updated successfully.');
+        return redirect()->route('appointments.index')
+                         ->with('success', 'Appointment updated successfully.');
     }
 
     /**
@@ -88,6 +89,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->delete();
 
-        return response()->json(['message' => 'Appointment deleted successfully.'], 200);
+        return redirect()->route('appointments.index')
+                         ->with('success', 'Appointment deleted successfully.');
     }
 }
