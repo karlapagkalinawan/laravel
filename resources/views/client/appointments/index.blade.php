@@ -7,7 +7,9 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center">
                     <h3 class="card-title mb-0">Manage Appointments</h3>
-                    <a href="{{ url('client/appointments/create') }}" class="btn btn-outline-primary btn-sm ms-auto">Add New Appointment</a>
+                    <div class="ms-auto">
+                        <a href="{{ url('client/appointments/create') }}" class="btn btn-outline-primary btn-sm">Add Appointment</a>
+                    </div>
                 </div>
                 <!-- /.card-header -->
 
@@ -22,8 +24,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th style="width: 10px;">#</th>
-                                <th>Schedule Date</th>
-                                <th>Time</th>
+                                <th>Schedule Date</th>  <!-- Combined Date & Time -->
                                 <th>Title</th>
                                 <th>Remarks</th>
                                 <th>Student</th>
@@ -35,8 +36,10 @@
                             @forelse($appointments as $key => $appointment)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('M d, Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d F, Y') }} 
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
+                                    </td>
                                     <td>{{ $appointment->title }}</td>
                                     <td>{{ $appointment->remarks }}</td>
                                     <td>{{ $appointment->student->fname ?? '' }} {{ $appointment->student->lname ?? '' }}</td>
@@ -54,7 +57,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="8">No appointments available</td>
+                                    <td class="text-center" colspan="7">No appointments available</td>
                                 </tr>
                             @endforelse
                         </tbody>
