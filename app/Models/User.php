@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $guarded = [];
 
-    protected $appends = ['created_date'];
+    protected $appends = ['created_date', 'display_photo', 'registered_date'];
 
 
     /**
@@ -47,5 +47,17 @@ class User extends Authenticatable
     public function getCreatedDateAttribute()
     {
         return $this->created_at->format('d F, Y');
+    }
+     public function getDisplayPhotoAttribute()
+    {
+        $photo = $this->photo;
+        if($photo){
+            return url('storage/' .$photo);
+        }
+        return url('https://ui-avatars.com/api/?name=' . $this->name);
+    }
+    public function getRegisteredDateAttribute()
+    {
+        return $this->created_at->format( 'F Y');
     }
 }

@@ -17,7 +17,7 @@
                 @endif
 
                 <!-- Form Start -->
-                <form action="{{ url('client/profile/' . auth()->user()->id) }}" method="POST">
+                <form action="{{ url('client/profile/' . auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -66,6 +66,18 @@
                             <label for="password_confirmation">Retype Password</label>
                             <input type="password" name="password_confirmation" class="form-control"
                                    id="password_confirmation" placeholder="Retype Password">
+                        </div>
+
+                        <!-- Profile Photo -->
+                        <div class="form-group mb-2">
+                            <label for="photo">Profile Photo</label>
+                            <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror"
+                                   id="profile_picture">
+                            @error('photo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
 
