@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
-use App\Models\Appointment;
+use Carbon\Carbon;
 use App\Models\Student;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Mail\SendAppointmentEmail;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendAppointmentEmailJob;
 
 class AppointmentController extends Controller
 {
@@ -43,7 +47,23 @@ class AppointmentController extends Controller
             'remarks'          => 'nullable|string',
         ]);
 
-        Appointment::create($request->all());
+        $student_id = $request->input('student_id');
+
+        // Create appointment first
+        $appointment = Appointment::create($request->all());
+
+        // Find the student to send email
+        $student = Student::find($student_id);
+
+        // Format the schedule date & time nicely
+        $schedule_date = Carbon::parse($request->input('appointment_date'))->format('d, F, Y') . ' ' .
+                         Carbon::parse($request->input('appointment_time'))->format('h:i A');
+        SendAppointmentEmailJob::dispatch($student, $schedule_date)->delay(now()->addSeconds(5));
+
+        // Send mail only if student and email exists
+        if ($student && $student->email) {
+           
+        }
 
         return redirect()->route('appointments.index')
                          ->with('success', 'Appointment created successfully.');
