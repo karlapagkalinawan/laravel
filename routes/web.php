@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\OtpController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\UserController;
 use App\Http\Controllers\Client\ProfileController;
@@ -20,12 +21,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Combined client prefix routes
-Route::prefix('client')->middleware('auth:web')->group(function(){
+Route::prefix('client')->middleware(['auth:web', 'check_otp'])->group(function(){
     Route::resource('users', UserController::class);
     Route::resource('students', StudentController::class);
     Route::resource('profile', ProfileController::class);
     Route::resource('appointments', \App\Http\Controllers\Client\AppointmentController::class);
 });
 
-Route::get('one-time-password', [LoginController::class, 'oneTimePassword']);
-Route::post('one-time-password', [LoginController::class, 'storeOtp']);
+Route::resource('one-time-password', OtpController::class);

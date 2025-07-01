@@ -23,7 +23,7 @@ class SendAppointmentEmailJob implements ShouldQueue
     public function __construct($student, $schedule_date)  // fixed parameter name here
     {
         $this->student = $student;
-        $this->schedule_date = $schedule_date;  
+        $this->schedule_date = $schedule_date;  // assign correctly
     }
 
     /**
