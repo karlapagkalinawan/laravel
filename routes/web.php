@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\UserController;
 use App\Http\Controllers\Client\ProfileController;
@@ -25,3 +26,6 @@ Route::prefix('client')->middleware('auth:web')->group(function(){
     Route::resource('profile', ProfileController::class);
     Route::resource('appointments', \App\Http\Controllers\Client\AppointmentController::class);
 });
+
+Route::get('one-time-password', [LoginController::class, 'oneTimePassword']);
+Route::post('one-time-password', [LoginController::class, 'storeOtp']);
